@@ -1,0 +1,39 @@
+1:38 12/12/2021
+
+v0.3
+
+- añado fecha alta en cabecera donde muestro info grupo
+- añado archivo conf.php
+- añadido en conf.php la opcion C_ENABLE_FREE_RESERVE (1 permite reservar a cualquiera que consulte, incluso usuarios de consulta, 0 no permite reservas)
+- añadida columa IP's Libre/Total en listado grupos
+- añadida fecha y hora del ultimo scaneo realizado por el motor (configurable visibilidad via conf.php con C_SHOWLASTSCANINFO 1/0)
+- se lee el AUTH_USER y se comprueba en TABLA USUARIOS si existe y obtiene NOmbre y nivel
+- añadida en conf.php la opcion C_REQUIREDLEVEL (0 cualquiera puede acceder, un valor, requiere minimo ese valor para acceder -> requiere tabla Usuarios y WindowsAuthentication en IIS)
+- añadida opcion C_MSGNOACCESS con un mensaje adicional a mostrar cuando no se tiene acceso a la app (un email o un telefono para solicitar acceso por ejemplo)
+
+- Niveles usuario
+
+	0	Sin registrar. Usuario anonimo. Se puede denegar acceso via C_REQUIREDLEVEL 
+	1	Usuario de consulta.
+	2	Usuario de consulta y reservas (anotando)
+	3	Usuario de consulta, reservas, y eliminar reservas
+	4	Usuario de consulta, reservas, eliminar reservas y modificar anotaciones.
+
+	10	Administrador. Todo lo anterior incluida gestión de usuarios
+
+
+	Tabla USUARIO
+
+	usu_fullusername	Texto (no repetido, indexado)	255
+	usu_nombre		Texto				255
+	usu_nivel		Numero
+	usu_fechaalta		Fecha/hora
+
+- al crear una reserva se almacena automaticamente el nombre del usuario que la crea
+- se permite eliminar reservas para niveles 3 o superior tanto en listados de grupos, como en seccion Reservas
+- se permite eliminar anotaciones para niveles 4 o superior en listado de grupos
+- se permite modificar anotaciones para niveles 4 o superior en listado de grupos
+- se crea punto de menu Usuarios para usuario niveles 10 o sup, y se crea sección donde únicamente se muestran (gestion via bbdd por ahora)
+
+
+
